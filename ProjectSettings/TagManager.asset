@@ -8,6 +8,7 @@ TagManager:
   - EnemyBody
   - RockHead1
   - Death
+  - Fruit
   layers:
   - Default
   - TransparentFX
