@@ -4,9 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - RockHead
   - EnemyHead1
   - EnemyBody
+  - RockHead1
+  - Death
   layers:
   - Default
   - TransparentFX

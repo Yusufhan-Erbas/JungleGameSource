@@ -4,15 +4,35 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	[SerializeField]
+	GameObject rockHead,enemyHead;
+	Rigidbody2D rb;
+	Animator anim;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	bool isEnemyDead = false;
+	private void Awake()
+	{
+		rb = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
+		anim = GetComponentInParent<Animator>();
+	}
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		Death(collision.gameObject);
+	}
+
+	void Death(GameObject enemy)
+	{
+		if (enemy.CompareTag("Player"))
+		{
+			rb.velocity = new Vector2(rb.velocity.x,5f);
+			isEnemyDead = true;
+			anim.SetBool("enemyDead", isEnemyDead);
+			Destroy(rockHead,0.8f);
+		}
+		else
+		{
+			isEnemyDead = false;
+		}
+	}
 }

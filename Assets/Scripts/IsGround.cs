@@ -17,9 +17,9 @@ public class IsGround : MonoBehaviour
 
 	private void Update()
 	{
-		RaycastHit2D isWeGround = Physics2D.Raycast(transform.position, Vector2.down, 1.5f, ground);
+		RaycastHit2D isWeGround = Physics2D.Raycast(transform.position, Vector2.down, 0.25f, ground);
 
-		if (isWeGround != null)
+		if (isWeGround.collider != null)
 		{
 			isGround = true;
 		}
