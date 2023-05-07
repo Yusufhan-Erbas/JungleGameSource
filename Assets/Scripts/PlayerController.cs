@@ -13,7 +13,8 @@ public class PlayerController : MonoBehaviour
 	[SerializeField]
 	GameObject[] enemyHeads;
 	GameObject enemyHead;
-
+	[SerializeField]
+	AudioSource deathSound,eatFruit;
 	AudioSource levelClear, gameManager;
 	public float speed = 5f;
 	bool isRun = false;
@@ -84,7 +85,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if (player.CompareTag("Death"))
 		{
-			Debug.Log(player);
+			deathSound.Play();
 			isDead = true;
 			anim.SetBool("isDead", isDead);
 			rb.velocity = new Vector2(0f,6f);
@@ -116,6 +117,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if (collision.CompareTag("Fruit"))
 		{
+			eatFruit.Play();
 			score += 5;
 			Destroy(collision.gameObject,0.6f);
 			scoreText.text = "X " + score;

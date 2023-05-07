@@ -9,9 +9,10 @@ public class IsGround : MonoBehaviour
 	Rigidbody2D rb;
 	float jumpAmount = 6f;
 	bool isGround=true;
-
+	AudioSource jumpSound;
 	private void Awake()
 	{
+		jumpSound = GetComponent<AudioSource>();
 		rb = GetComponentInParent<Rigidbody2D>();
 	}
 
@@ -30,6 +31,7 @@ public class IsGround : MonoBehaviour
 
 		if(isGround==true && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))) 
 		{
+			jumpSound.Play();
 			rb.velocity =new Vector2(rb.velocity.x,jumpAmount);
 		}
 	}
