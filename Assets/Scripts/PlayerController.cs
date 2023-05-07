@@ -6,9 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb;
 	Animator anim;
-	Transform world;
     public float  speed=5f;
-	float startRotation;
 	bool isRun = false;
 	bool isRight = true;
 
@@ -16,11 +14,6 @@ public class PlayerController : MonoBehaviour
 	{
 		anim = GetComponent<Animator>();
 		rb = GetComponent<Rigidbody2D>();
-	}
-
-	private void Start()
-	{
-		startRotation = transform.rotation.y;
 	}
 
 	private void Update()
