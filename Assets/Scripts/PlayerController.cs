@@ -1,21 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
 	Rigidbody2D rb;
 	Animator anim;
+	[SerializeField]
+	Text scoreText;
+	[SerializeField]
+	GameObject[] enemyHeads;
+	GameObject enemyHead;
 	public float speed = 5f;
 	bool isRun = false;
 	bool isRight = true;
 	bool isDead = false;
+	
+	int score = 0;
+
 	private void Awake()
 	{
 		anim = GetComponent<Animator>();
 		rb = GetComponent<Rigidbody2D>();
 	}
-
+	private void Start()
+	{
+		scoreText.text = "X "+score;
+	}
 	private void Update()
 	{
 		Move();
@@ -90,6 +101,30 @@ public class PlayerController : MonoBehaviour
 		{
 			isDead = false;
 		}
+	}
+	#endregion
+
+	#region Fruit Taken Process
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.CompareTag("Fruit"))
+		{
+			score += 5;
+			Destroy(collision.gameObject,0.6f);
+			scoreText.text = "X " + score;
+		}
+		for (int i = 0; i < enemyHeads.Length; i++)
+		{
+			enemyHead = enemyHeads[i];
+			Debug.Log(enemyHead.tag);
+			if (collision.CompareTag(enemyHead.tag.ToString()))
+			{
+				score += 10;
+				scoreText.text = "X " + score;
+			}
+		}
+		
+		
 	}
 	#endregion
 }

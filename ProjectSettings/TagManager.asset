@@ -9,6 +9,14 @@ TagManager:
   - RockHead1
   - Death
   - Fruit
+  - RockHead2
+  - EnemyHead2
+  - RockHead3
+  - EnemyHead3
+  - RockHead4
+  - EnemyHead4
+  - RockHead5
+  - EnemyHead5
   layers:
   - Default
   - TransparentFX

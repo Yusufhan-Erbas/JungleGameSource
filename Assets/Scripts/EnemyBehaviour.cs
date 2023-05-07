@@ -7,8 +7,11 @@ public class EnemyBehaviour : MonoBehaviour
 	[SerializeField]
 	GameObject rockHead,enemyHead;
 	Rigidbody2D rb;
+	
 	Animator anim;
+	
 
+	
 	bool isEnemyDead = false;
 	private void Awake()
 	{
@@ -16,6 +19,8 @@ public class EnemyBehaviour : MonoBehaviour
 		anim = GetComponentInParent<Animator>();
 	}
 
+	
+	#region Enemy Death
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		Death(collision.gameObject);
@@ -35,4 +40,7 @@ public class EnemyBehaviour : MonoBehaviour
 			isEnemyDead = false;
 		}
 	}
+	#endregion
+
+	
 }
