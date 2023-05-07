@@ -17,6 +17,8 @@ TagManager:
   - EnemyHead4
   - RockHead5
   - EnemyHead5
+  - Flag
+  - GameManager
   layers:
   - Default
   - TransparentFX

@@ -2,15 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 public class PlayerController : MonoBehaviour
 {
 	Rigidbody2D rb;
-	Animator anim;
+	Animator anim,flagAnim;
 	[SerializeField]
 	Text scoreText;
 	[SerializeField]
 	GameObject[] enemyHeads;
 	GameObject enemyHead;
+
+	AudioSource levelClear, gameManager;
 	public float speed = 5f;
 	bool isRun = false;
 	bool isRight = true;
@@ -20,6 +24,9 @@ public class PlayerController : MonoBehaviour
 
 	private void Awake()
 	{
+		gameManager = GameObject.FindWithTag("GameManager").GetComponent<AudioSource>();
+		levelClear = GetComponent<AudioSource>();
+		flagAnim = GameObject.FindWithTag("Flag").GetComponent<Animator>();
 		anim = GetComponent<Animator>();
 		rb = GetComponent<Rigidbody2D>();
 	}
@@ -113,6 +120,19 @@ public class PlayerController : MonoBehaviour
 			Destroy(collision.gameObject,0.6f);
 			scoreText.text = "X " + score;
 		}
+		else if (collision.CompareTag("Flag"))
+		{
+			StartCoroutine(NewScene());
+			if (levelClear.isPlaying)
+			{
+				return;
+			}
+			gameManager.mute = true;
+			levelClear.Play();
+			
+			
+		}
+
 		for (int i = 0; i < enemyHeads.Length; i++)
 		{
 			enemyHead = enemyHeads[i];
@@ -125,6 +145,16 @@ public class PlayerController : MonoBehaviour
 		}
 		
 		
+	}
+
+	IEnumerator NewScene()
+	{
+		flagAnim.SetTrigger("isEnd");
+		yield return new WaitForSeconds(3f);
+		flagAnim.SetBool("isFinish",true);
+		yield return new WaitForSeconds(6f);
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
 	}
 	#endregion
 }
