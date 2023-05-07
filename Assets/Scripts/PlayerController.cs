@@ -6,30 +6,42 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb;
 	Animator anim;
+	Transform world;
     public float  speed=5f;
+	float startRotation;
 	bool isRun = false;
 	bool isRight = true;
-	private void Start()
+
+	private void Awake()
 	{
 		anim = GetComponent<Animator>();
 		rb = GetComponent<Rigidbody2D>();
 	}
 
-	private void FixedUpdate()
+	private void Start()
+	{
+		startRotation = transform.rotation.y;
+	}
+
+	private void Update()
 	{
 		Move();
+		Turn();
 	}
+
 	#region Character Movement
 	void Move()
 	{
 		if (Input.GetKey(KeyCode.D))
 		{
+			isRight = true;
 			transform.Translate(Vector2.right*speed*Time.deltaTime);
 			isRun = true;
         }
         else if (Input.GetKey(KeyCode.A))
 		{
-			transform.Translate(Vector2.left *speed* Time.deltaTime);
+			isRight = false;
+			transform.Translate(Vector2.right *speed* Time.deltaTime);
 			isRun = true;
 		}
 		anim.SetBool("isRunning",isRun);
@@ -40,7 +52,14 @@ public class PlayerController : MonoBehaviour
 	#region Character Turn
 	void Turn()
 	{
-		
+		if (isRight)
+		{
+			transform.rotation = Quaternion.Euler(Vector2.up * 0);
+		}
+		if (!isRight)
+		{
+			transform.rotation = Quaternion.Euler(Vector2.down * -180);
+		}
 	}
 	#endregion
 }
